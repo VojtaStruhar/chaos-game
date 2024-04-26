@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://gu21vlm5ksia"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_tbrhp"]
+[ext_resource type="Script" path="res://MouseDetect.gd" id="2_5a2vj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3iasq"]
+size = Vector2(1024, 1024)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_tbrhp")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(965, 536)
+
+[node name="MouseDetect" type="Area2D" parent="."]
+position = Vector2(965, 536)
+script = ExtResource("2_5a2vj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetect"]
+shape = SubResource("RectangleShape2D_3iasq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Run chaos"
+
+[node name="ClearButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[connection signal="mouse_entered" from="MouseDetect" to="MouseDetect" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetect" to="MouseDetect" method="_on_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
