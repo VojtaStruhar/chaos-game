@@ -12,6 +12,13 @@ script = ExtResource("1_tbrhp")
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(965, 536)
 
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(735, 380)
+points = PackedVector2Array(-42.45, 2.08165e-12, 56.15, 2.08165e-12)
+closed = true
+width = 2.0
+default_color = Color(1, 0, 1, 1)
+
 [node name="MouseDetect" type="Area2D" parent="."]
 position = Vector2(965, 536)
 script = ExtResource("2_5a2vj")

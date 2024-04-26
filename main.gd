@@ -5,6 +5,7 @@ const VERTEX_POINT = preload("res://vertex_point.tscn")
 
 @onready var mouse_detect: MouseDetect = $MouseDetect
 @onready var background: Sprite2D = $Background
+@onready var helper_line: Line2D = $Line2D
 
 ## Points of the chaos polygon. Ranges are between 0 and 1, multiply by canvas size!
 var points: Array[Vector2] = []
@@ -14,8 +15,6 @@ const canvas_size = 1024
 var image: Image
 
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_detect.point_added.connect(add_point)
 	
@@ -23,14 +22,18 @@ func _ready() -> void:
 	image.fill(Color.AQUA)
 	background.texture = ImageTexture.create_from_image(image)
 	
+	helper_line.global_position = background.global_position
 	
 
 func add_point(coords: Vector2) -> void:
 	points.append(coords)
-	
+	var point_world = (coords - Vector2.ONE / 2) * canvas_size
 	var helper = VERTEX_POINT.instantiate()
 	background.add_child(helper)
-	helper.position = (coords - Vector2.ONE / 2) * canvas_size
+	helper.position = point_world
+	
+	
+	helper_line.add_point(point_world)
 	
 	run_chaos()
 
@@ -45,8 +48,7 @@ func run_chaos():
 	
 	var point: Vector2 = Vector2(0.5, 0.5)
 	
-	# golden ratio?
-	var ratio = 1.5
+	var ratio: float = 2 / 3.0
 	print("ratio ", ratio)
 	
 	for i in range(250_000):
@@ -77,6 +79,10 @@ func clear() -> void:
 		child.queue_free()
 	
 	points.clear()
+	image.fill(Color.WHITE)
+	(background.texture as ImageTexture).update(image)
+	
+	helper_line.clear_points()
 
 
 func _on_clear_button_pressed() -> void:
