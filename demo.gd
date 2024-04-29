@@ -1,7 +1,7 @@
 extends Node2D
 
 
-const VERTEX_POINT = preload("res://vertex_point.tscn")
+const VERTEX_POINT = preload("res://demo_vertex_helper.tscn")
 
 @onready var mouse_detect: MouseDetect = $MouseDetect
 @onready var background: Sprite2D = $Background
