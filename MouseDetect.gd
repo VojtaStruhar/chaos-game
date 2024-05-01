@@ -4,7 +4,13 @@ class_name MouseDetect extends Area2D
 
 var mouse_in: bool = false
 
-signal point_added(Vector2)
+signal on_add_point(Vector2)
+
+
+func _ready() -> void:
+	mouse_entered.connect(func(): mouse_in = true)
+	mouse_exited.connect(func(): mouse_in = false)
+
 
 func _process(delta: float) -> void:
 	if mouse_in and Input.is_action_just_pressed("place_point"):
@@ -13,12 +19,10 @@ func _process(delta: float) -> void:
 		var rect_global_position = collision_shape.global_position + rect.position
 		var relative_position = (mpos - rect_global_position) / rect.size
 		
-		point_added.emit(relative_position)
-		
-
-func _on_mouse_entered() -> void:
-	mouse_in = true
+		on_add_point.emit(relative_position)
 
 
-func _on_mouse_exited() -> void:
-	mouse_in = false
+func set_size(size: int) -> void:
+	var rect = collision_shape.shape as RectangleShape2D
+	rect.size = Vector2(size, size)
+	

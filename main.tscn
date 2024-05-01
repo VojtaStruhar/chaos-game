@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4atwge0pv80"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_gnx52"]
+[ext_resource type="Script" path="res://MouseDetect.gd" id="2_6dac1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vicio"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_gnx52")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SidePanel" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchor_left = 0.66
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/SidePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tool" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+layout_mode = 2
+text = "Tool"
+
+[node name="Export" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Export"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SidePanel/TabContainer/Export/VBoxContainer"]
+layout_mode = 2
+text = "Export tab"
+
+[node name="Game" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(512, 512)
+
+[node name="MouseDetect" type="Area2D" parent="Game"]
+unique_name_in_owner = true
+script = ExtResource("2_6dac1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/MouseDetect"]
+shape = SubResource("RectangleShape2D_vicio")
+
+[node name="HelperLine" type="Line2D" parent="Game"]
+closed = true
+width = 2.0
+default_color = Color(1, 0, 1, 1)

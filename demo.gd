@@ -16,7 +16,7 @@ var image: Image
 
 
 func _ready() -> void:
-	mouse_detect.point_added.connect(add_point)
+	mouse_detect.on_add_point.connect(add_point)
 	
 	image = Image.create(canvas_size, canvas_size, false, Image.FORMAT_RGBA8)
 	image.fill(Color.AQUA)
