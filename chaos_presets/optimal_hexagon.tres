@@ -11,6 +11,6 @@ points = Array[Vector2]([Vector2(0.9, 0.5), Vector2(0.7, 0.84641), Vector2(0.3, 
 points_color = Color(0, 0, 0, 1)
 background_color = Color(1, 1, 1, 1)
 can_add_points = false
-can_move_points = false
+can_move_points = true
 show_vertices = true
 show_helper_line = true
