@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ChaosPreset" load_steps=2 format=3 uid="uid://csqwf1bdqpent"]
+
+[ext_resource type="Script" path="res://chaos_preset.gd" id="1_rebn8"]
+
+[resource]
+script = ExtResource("1_rebn8")
+name = "Optimal Hexagon"
+iterations = 150000
+ratio = 0.667
+points = Array[Vector2]([Vector2(0.9, 0.5), Vector2(0.7, 0.84641), Vector2(0.3, 0.84641), Vector2(0.1, 0.5), Vector2(0.3, 0.15359), Vector2(0.7, 0.15359)])
+points_color = Color(0, 0, 0, 1)
+background_color = Color(1, 1, 1, 1)
+can_add_points = false
+can_move_points = false
+show_vertices = true
+show_helper_line = true
