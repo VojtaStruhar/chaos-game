@@ -50,10 +50,25 @@ layout_mode = 2
 [node name="StaticButtons" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons"]
+layout_mode = 2
+
+[node name="ClearCanvasButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Clear canvas"
+
+[node name="NewPresetButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New Preset"
+
 [node name="RunChaosButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Run Chaos!"
+text = "Run Chaos Game!"
 
 [node name="Presets" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
 unique_name_in_owner = true

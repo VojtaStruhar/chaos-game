@@ -7,7 +7,7 @@ var game_texture: ImageTexture
 var game_image: Image
 
 @onready var mouse_detect: MouseDetect = %MouseDetect
-## Turned ON when mouse enters one of the vertex handles
+## Turned OFF when mouse enters one of the vertex handles
 var should_add_points: bool = true
 
 @onready var helper_line: Line2D = %Game/HelperLine
@@ -17,6 +17,8 @@ var should_add_points: bool = true
 @onready var panel_tool: MarginContainer = %Tool
 @onready var panel_presets: MarginContainer = %Presets
 @onready var run_chaos_button: Button = %RunChaosButton
+@onready var clear_canvas_button: Button = %ClearCanvasButton
+@onready var new_preset_button: Button = %NewPresetButton
 
 
 const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
@@ -28,10 +30,17 @@ func _ready() -> void:
 		assign_preset(ChaosPreset.new())
 	
 	run_chaos_button.pressed.connect(run_chaos_game)
+	clear_canvas_button.pressed.connect(clear_canvas)
+	new_preset_button.pressed.connect(func(): assign_preset(ChaosPreset.new()))
 	
 	panel_presets.on_preset_selected.connect(func(p):
 		assign_preset(p)
 		run_chaos_game()
+	)
+	
+	get_viewport().size_changed.connect(func():
+		var vp_rect: Rect2 = get_viewport_rect()
+		game_sprite.position = Vector2(vp_rect.size.y / 2, vp_rect.size.y / 2)
 	)
 	
 	mouse_detect.on_add_point.connect(add_point)
