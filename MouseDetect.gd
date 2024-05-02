@@ -12,7 +12,7 @@ func _ready() -> void:
 	mouse_exited.connect(func(): mouse_in = false)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if mouse_in and Input.is_action_just_pressed("place_point"):
 		var mpos = get_viewport().get_mouse_position()
 		var rect = (collision_shape.shape as RectangleShape2D).get_rect()

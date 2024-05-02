@@ -17,3 +17,9 @@ class_name ChaosPreset extends Resource
 
 ## Canvas color
 @export var background_color: Color = Color.WHITE
+
+## Show helper "handles" on vertices
+@export var show_vertices: bool = true
+
+## Outline the vertices with a line. Order of the vertices starts to matter here!
+@export var show_helper_line: bool = true

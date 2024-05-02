@@ -12,10 +12,9 @@ var game_image: Image
 # Controls
 
 @onready var panel_tool: MarginContainer = %Tool
-
 @onready var run_chaos_button: Button = %RunChaosButton
 
-
+const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
 
 
 func _ready() -> void:
@@ -39,13 +38,16 @@ func _ready() -> void:
 	# it lines up nicely
 	helper_line.position = -0.5 * Vector2(preset.canvas_size, preset.canvas_size)
 	
-	
 	preset.changed.connect(run_chaos_game)
 
 func add_point(uv_coords: Vector2) -> void:
 	preset.points.append(uv_coords)
 	var image_coords = uv_coords * preset.canvas_size
 	helper_line.add_point(image_coords)
+	
+	var handle = VERTEX_HANDLE.instantiate()
+	helper_line.add_child(handle)
+	handle.position = image_coords
 
 func run_chaos_game() -> void:
 	clear_canvas()
@@ -67,6 +69,13 @@ func run_chaos_game() -> void:
 		)
 	
 	game_texture.update(game_image)
+
+func reset_chaos_game() -> void:
+	clear_canvas()
+	
+	preset.points.clear()
+	for child in helper_line.get_children():
+		child.queue_free()
 
 func clear_canvas() -> void:
 	game_image.fill(preset.background_color)

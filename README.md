@@ -11,7 +11,8 @@
   - the usual interesting stuff. Regular polygons with interesting ratios.
 - Snap points to a grid. Maybe just a square grid at first. Show guidance lines.
 - Edit currently placed points
-  - adjusts the shape
+  - Add (default click), Remove (Right click?), Move (drag)
+    - Detect input events directly in the mouse  detector. Input actions are not suitable for this I think.
   - Not sure if I can re-render for every change (smooth). Maybe with a small number of iterations? Just for a preview
 
 
