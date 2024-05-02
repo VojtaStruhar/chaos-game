@@ -7,6 +7,8 @@ var game_texture: ImageTexture
 var game_image: Image
 
 @onready var mouse_detect: MouseDetect = %MouseDetect
+var should_add_points: bool = true
+
 @onready var helper_line: Line2D = %Game/HelperLine
 
 # Controls
@@ -15,6 +17,7 @@ var game_image: Image
 @onready var run_chaos_button: Button = %RunChaosButton
 
 const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
+
 
 
 func _ready() -> void:
@@ -40,14 +43,24 @@ func _ready() -> void:
 	
 	preset.changed.connect(run_chaos_game)
 
+
 func add_point(uv_coords: Vector2) -> void:
+	if not should_add_points:
+		print("Rejecting add_point")
+		return
+	
 	preset.points.append(uv_coords)
 	var image_coords = uv_coords * preset.canvas_size
 	helper_line.add_point(image_coords)
 	
 	var handle = VERTEX_HANDLE.instantiate()
+	handle.preset = preset
+	handle.on_mouse_entered.connect(func(): should_add_points = false)
+	handle.on_mouse_exited.connect(func(): should_add_points = true)
+	handle.on_drag.connect(recalculate_points)
 	helper_line.add_child(handle)
 	handle.position = image_coords
+
 
 func run_chaos_game() -> void:
 	clear_canvas()
@@ -80,3 +93,11 @@ func reset_chaos_game() -> void:
 func clear_canvas() -> void:
 	game_image.fill(preset.background_color)
 	game_texture.update(game_image)
+
+## Called when a vertex handle is dragged. Looks at vertex handles and refreshes 
+## preset points from their positions.
+func recalculate_points() -> void:
+	for i in helper_line.get_child_count():
+		var handle = helper_line.get_child(i)
+		preset.points[i] = handle.position / preset.canvas_size
+		helper_line.set_point_position(i, handle.position)
