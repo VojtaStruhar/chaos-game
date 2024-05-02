@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4atwge0pv80"]
+[gd_scene load_steps=8 format=3 uid="uid://c4atwge0pv80"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_gnx52"]
 [ext_resource type="Theme" uid="uid://dwpq5fy6hwu8f" path="res://sidebar_theme.tres" id="2_0h620"]
 [ext_resource type="Script" path="res://MouseDetect.gd" id="2_6dac1"]
 [ext_resource type="Script" path="res://tool_panel.gd" id="3_vdhes"]
 [ext_resource type="Script" path="res://presets_panel.gd" id="4_8deob"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3tlp1"]
+size = Vector2(1024, 1024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vicio"]
 
@@ -64,7 +67,8 @@ layout_mode = 2
 
 [node name="Game" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(512, 512)
+position = Vector2(546, 547)
+texture = SubResource("PlaceholderTexture2D_3tlp1")
 
 [node name="MouseDetect" type="Area2D" parent="Game"]
 unique_name_in_owner = true
