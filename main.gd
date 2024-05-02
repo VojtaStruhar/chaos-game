@@ -101,6 +101,8 @@ func recalculate_points() -> void:
 		var handle = helper_line.get_child(i)
 		preset.points[i] = handle.position / preset.canvas_size
 		helper_line.set_point_position(i, handle.position)
+	
+	run_chaos_game()
 
 
 ## Accepts a preset from the outside, integrates its values and then assigns it 
