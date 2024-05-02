@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ChaosPreset" load_steps=2 format=3 uid="uid://bba11cf0www4m"]
+
+[ext_resource type="Script" path="res://chaos_preset.gd" id="1_amilr"]
+
+[resource]
+script = ExtResource("1_amilr")
+name = "Optimal Pentagon"
+iterations = 100000
+ratio = 0.618
+points = Array[Vector2]([Vector2(0.5, 0.1), Vector2(0.880423, 0.376393), Vector2(0.735114, 0.823607), Vector2(0.264886, 0.823607), Vector2(0.119577, 0.376393)])
+points_color = Color(0, 0, 0, 1)
+background_color = Color(1, 1, 1, 1)
+can_add_points = false
+can_move_points = false
+show_vertices = true
+show_helper_line = true
