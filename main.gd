@@ -51,7 +51,7 @@ func add_point(uv_coords: Vector2) -> void:
 		print("[INFO] Rejecting add_point")
 		return
 	
-	preset.points.append(uv_coords)
+	preset.append_point(uv_coords)
 	create_point_helper(uv_coords)
 
 

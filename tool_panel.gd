@@ -14,14 +14,16 @@ const CHECKBOX_FIELD = preload("res://property_fields/checkbox_field.tscn")
 const COLOR_FIELD = preload("res://property_fields/color_field.tscn")
 
 func build_ui():
-	var props = preset.get_property_list()
 	
 	for child in properties_container.get_children():
 		child.queue_free()
 	
+	var props = preset.get_property_list()
+	
 	for prop in props:
 		# This is an exported variable
-		if (prop["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE) > 0:
+		var prop_usage = prop["usage"]
+		if prop_usage & PROPERTY_USAGE_EDITOR and prop_usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
 			#print(prop["name"], " - ", type_string(prop["type"]), "; ", prop)
 			var prop_type = prop["type"]
 			var field_node = null
