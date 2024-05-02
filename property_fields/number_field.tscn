@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2pum74to34ps"]
+
+[sub_resource type="GDScript" id="GDScript_bq1y5"]
+resource_name = "NumberField"
+script/source = "extends PropertyField
+
+@onready var label: Label = $Label
+@onready var spin_box: SpinBox = $SpinBox
+
+var prop_stringname: StringName
+
+func setup(data: Dictionary):
+	print(\"NumberSetup: \", data)
+	var prop_name = data[\"name\"]
+	prop_stringname = StringName(prop_name)
+	label.text = prop_name.to_pascal_case()
+	
+	
+	if data[\"hint\"] == PROPERTY_HINT_RANGE:
+		var parts: PackedStringArray = data[\"hint_string\"].split(\",\")
+		assert(parts.size() == 3)
+		if data[\"type\"] == TYPE_INT:
+			spin_box.min_value = parts[0].to_int()
+			spin_box.max_value = parts[1].to_int()
+			spin_box.step = parts[2].to_int()
+		elif data[\"type\"] == TYPE_FLOAT:
+			spin_box.min_value = parts[0].to_float()
+			spin_box.max_value = parts[1].to_float()
+			spin_box.step = parts[2].to_float()
+	
+	# Assign current value
+	spin_box.value = preset.get(prop_name)
+	
+	spin_box.value_changed.connect(func(v):
+		preset.set(prop_stringname, v)
+		preset.emit_changed()
+	)
+"
+
+[node name="NumberField" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+script = SubResource("GDScript_bq1y5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Label"
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

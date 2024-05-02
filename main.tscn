@@ -37,60 +37,16 @@ script = ExtResource("3_vdhes")
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool"]
 layout_mode = 2
 
-[node name="IterationsField" type="HBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="PropertiesContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/IterationsField"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Interations"
-
-[node name="IterationsSpinBox" type="SpinBox" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/IterationsField"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 10000.0
-max_value = 1e+06
-step = 10000.0
-value = 100000.0
-
-[node name="RatioField" type="HBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="StaticButtons" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/RatioField"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Ratio"
-
-[node name="RatioSpinBox" type="SpinBox" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/RatioField"]
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 2.0
-step = 0.001
-value = 0.5
-
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons"]
 layout_mode = 2
 
-[node name="ShapeField" type="HBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/ShapeField"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Shape preset"
-
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/ShapeField"]
-layout_mode = 2
-size_flags_horizontal = 3
-item_count = 1
-selected = 0
-popup/item_0/text = "Draw custom"
-popup/item_0/id = 0
-
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
-layout_mode = 2
-
-[node name="RunChaosButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="RunChaosButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Run Chaos!"

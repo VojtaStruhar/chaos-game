@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://0oa01s8kiawg"]
+
+[sub_resource type="GDScript" id="GDScript_3kgu3"]
+resource_name = "CheckboxField"
+script/source = "extends PropertyField
+
+@onready var label: Label = $Label
+@onready var check_box: CheckBox = $CheckBox
+
+var prop_stringname: StringName
+
+func setup(data: Dictionary) -> void:
+	var prop_name = data[\"name\"]
+	prop_stringname = StringName(prop_name)
+	label.text = prop_name.to_pascal_case()
+	
+	check_box.button_pressed = preset.get(prop_stringname)
+	check_box.toggled.connect(func(v):
+		preset.set(prop_stringname, v)
+		preset.emit_changed()
+	)
+"
+
+[node name="CheckboxField" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_3kgu3")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Checkbox"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

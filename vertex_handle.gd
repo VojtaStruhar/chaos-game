@@ -35,7 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_index == 1 and not event.pressed:
 			is_dragging = false
 	
-	if is_dragging:
+	if preset.can_move_points and is_dragging:
 		if event is InputEventMouseMotion:
 			event = event as InputEventMouseMotion
 			position += event.relative

@@ -7,6 +7,7 @@ var game_texture: ImageTexture
 var game_image: Image
 
 @onready var mouse_detect: MouseDetect = %MouseDetect
+## Turned ON when mouse enters one of the vertex handles
 var should_add_points: bool = true
 
 @onready var helper_line: Line2D = %Game/HelperLine
@@ -22,32 +23,22 @@ const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
 
 func _ready() -> void:
 	if preset == null:
-		print("No preset - creating a default one")
-		preset = ChaosPreset.new()
+		print("[INFO] No preset - creating a default one")
+		assign_preset(ChaosPreset.new())
 	
 	panel_tool.preset = preset
 	run_chaos_button.pressed.connect(run_chaos_game)
 	
-	game_image = Image.create(preset.canvas_size, preset.canvas_size, false, Image.FORMAT_RGBA8)
-	game_image.fill(preset.background_color)
-	
-	game_texture = ImageTexture.create_from_image(game_image)
-	game_sprite.texture = game_texture
-	
-	mouse_detect.set_size(preset.canvas_size)
 	mouse_detect.on_add_point.connect(add_point)
 	
-	# The image and mouse area rect are "centered" --> offset the entire helper line so that
-	# it lines up nicely
-	helper_line.position = -0.5 * Vector2(preset.canvas_size, preset.canvas_size)
 	
-	preset.changed.connect(run_chaos_game)
 
 
 func add_point(uv_coords: Vector2) -> void:
 	if not should_add_points:
-		print("Rejecting add_point")
+		print("[INFO] Rejecting add_point")
 		return
+	
 	
 	preset.points.append(uv_coords)
 	var image_coords = uv_coords * preset.canvas_size
@@ -63,6 +54,10 @@ func add_point(uv_coords: Vector2) -> void:
 
 
 func run_chaos_game() -> void:
+	if preset.points.size() < 2:
+		print("[WARNING] Cannot run chaos game with ", preset.points.size(), " points!")
+		return
+	
 	clear_canvas()
 	
 	var current_point: Vector2 = preset.points.pick_random()
@@ -101,3 +96,25 @@ func recalculate_points() -> void:
 		var handle = helper_line.get_child(i)
 		preset.points[i] = handle.position / preset.canvas_size
 		helper_line.set_point_position(i, handle.position)
+
+
+## Accepts a preset from the outside, integrates its values and then assigns it 
+## as the current one.
+func assign_preset(p: ChaosPreset) -> void:
+	preset = p
+	
+	game_image = Image.create(preset.canvas_size, preset.canvas_size, false, Image.FORMAT_RGBA8)
+	game_image.fill(preset.background_color)
+	
+	game_texture = ImageTexture.create_from_image(game_image)
+	game_sprite.texture = game_texture
+	
+	mouse_detect.preset = preset
+	mouse_detect.set_size(preset.canvas_size)
+	
+	# The image and mouse area rect are "centered" --> offset the entire helper line so that
+	# it lines up nicely
+	helper_line.position = -0.5 * Vector2(preset.canvas_size, preset.canvas_size)
+	
+	preset.changed.connect(run_chaos_game)
+	

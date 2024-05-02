@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm578j2eecjyg"]
+
+[sub_resource type="GDScript" id="GDScript_dvq1m"]
+resource_name = "TextField"
+script/source = "extends PropertyField
+
+@onready var label: Label = $Label
+@onready var line_edit: LineEdit = $LineEdit
+
+var prop_stringname: StringName
+
+func setup(data: Dictionary) -> void:
+	var prop_name = data[\"name\"]
+	prop_stringname = StringName(prop_name)
+	label.text = prop_name.to_pascal_case()
+	
+	
+	# Assign current value
+	line_edit.text = preset.get(prop_name)
+	
+	line_edit.text_submitted.connect(func(v):
+		preset.set(prop_stringname, v)
+		preset.emit_changed()
+	)
+"
+
+[node name="TextField" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+script = SubResource("GDScript_dvq1m")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Text field"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
