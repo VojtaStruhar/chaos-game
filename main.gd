@@ -15,10 +15,11 @@ var should_add_points: bool = true
 # Controls
 
 @onready var panel_tool: MarginContainer = %Tool
+@onready var panel_presets: MarginContainer = %Presets
 @onready var run_chaos_button: Button = %RunChaosButton
 
-const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
 
+const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
 
 
 func _ready() -> void:
@@ -26,12 +27,14 @@ func _ready() -> void:
 		print("[INFO] No preset - creating a default one")
 		assign_preset(ChaosPreset.new())
 	
-	panel_tool.preset = preset
 	run_chaos_button.pressed.connect(run_chaos_game)
 	
+	panel_presets.on_preset_selected.connect(func(p):
+		assign_preset(p)
+		run_chaos_game()
+	)
+	
 	mouse_detect.on_add_point.connect(add_point)
-	
-	
 
 
 func add_point(uv_coords: Vector2) -> void:
@@ -39,18 +42,8 @@ func add_point(uv_coords: Vector2) -> void:
 		print("[INFO] Rejecting add_point")
 		return
 	
-	
 	preset.points.append(uv_coords)
-	var image_coords = uv_coords * preset.canvas_size
-	helper_line.add_point(image_coords)
-	
-	var handle = VERTEX_HANDLE.instantiate()
-	handle.preset = preset
-	handle.on_mouse_entered.connect(func(): should_add_points = false)
-	handle.on_mouse_exited.connect(func(): should_add_points = true)
-	handle.on_drag.connect(recalculate_points)
-	helper_line.add_child(handle)
-	handle.position = image_coords
+	create_point_helper(uv_coords)
 
 
 func run_chaos_game() -> void:
@@ -78,6 +71,7 @@ func run_chaos_game() -> void:
 	
 	game_texture.update(game_image)
 
+
 func reset_chaos_game() -> void:
 	clear_canvas()
 	
@@ -85,9 +79,11 @@ func reset_chaos_game() -> void:
 	for child in helper_line.get_children():
 		child.queue_free()
 
+
 func clear_canvas() -> void:
 	game_image.fill(preset.background_color)
 	game_texture.update(game_image)
+
 
 ## Called when a vertex handle is dragged. Looks at vertex handles and refreshes 
 ## preset points from their positions.
@@ -101,6 +97,7 @@ func recalculate_points() -> void:
 ## Accepts a preset from the outside, integrates its values and then assigns it 
 ## as the current one.
 func assign_preset(p: ChaosPreset) -> void:
+	clear_point_helpers()
 	preset = p
 	
 	game_image = Image.create(preset.canvas_size, preset.canvas_size, false, Image.FORMAT_RGBA8)
@@ -116,5 +113,29 @@ func assign_preset(p: ChaosPreset) -> void:
 	# it lines up nicely
 	helper_line.position = -0.5 * Vector2(preset.canvas_size, preset.canvas_size)
 	
-	preset.changed.connect(run_chaos_game)
+	for point in preset.points:
+		create_point_helper(point)
 	
+	# Hook up signals
+	panel_tool.preset = preset
+	preset.changed.connect(run_chaos_game)
+
+
+## Adds the point to helper line and creates vertex handles
+func create_point_helper(uv_coords: Vector2) -> void:
+	var image_coords = uv_coords * preset.canvas_size
+	helper_line.add_point(image_coords)
+	
+	var handle = VERTEX_HANDLE.instantiate()
+	handle.preset = preset
+	handle.on_mouse_entered.connect(func(): should_add_points = false)
+	handle.on_mouse_exited.connect(func(): should_add_points = true)
+	handle.on_drag.connect(recalculate_points)
+	helper_line.add_child(handle)
+	handle.position = image_coords
+
+## Clears helper line and all vertex handles
+func clear_point_helpers() -> void:
+	helper_line.clear_points()
+	for child in helper_line.get_children():
+		child.queue_free()

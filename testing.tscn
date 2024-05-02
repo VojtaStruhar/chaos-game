@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://ogfc54yt1mmp"]
+
+[sub_resource type="GDScript" id="GDScript_7c7in"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var point = Vector2(0.5, 0.5)
+	var dir = Vector2.UP * 0.4
+	
+	print(point + dir.rotated(deg_to_rad(0)))
+	print(point + dir.rotated(deg_to_rad(120)))
+	print(point + dir.rotated(deg_to_rad(240)))
+"
+
+[node name="Testing" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_7c7in")

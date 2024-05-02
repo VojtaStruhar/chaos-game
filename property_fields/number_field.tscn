@@ -10,7 +10,7 @@ script/source = "extends PropertyField
 var prop_stringname: StringName
 
 func setup(data: Dictionary):
-	print(\"NumberSetup: \", data)
+
 	var prop_name = data[\"name\"]
 	prop_stringname = StringName(prop_name)
 	label.text = prop_name.to_pascal_case()
