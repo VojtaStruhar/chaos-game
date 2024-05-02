@@ -17,7 +17,6 @@ func setup(data: Dictionary) -> void:
 	check_box.button_pressed = preset.get(prop_stringname)
 	check_box.toggled.connect(func(v):
 		preset.set(prop_stringname, v)
-		preset.emit_changed()
 	)
 "
 

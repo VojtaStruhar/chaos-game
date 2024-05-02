@@ -80,6 +80,17 @@ presets_dir_path = "res://chaos_presets"
 [node name="Tree" type="Tree" parent="CanvasLayer/SidePanel/TabContainer/Presets"]
 layout_mode = 2
 
+[node name="Export" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Export"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SidePanel/TabContainer/Export/VBoxContainer"]
+layout_mode = 2
+text = "Export options coming soon :)"
+
 [node name="Game" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(546, 547)

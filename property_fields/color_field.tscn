@@ -21,7 +21,6 @@ func setup(data: Dictionary) -> void:
 	# trigger changes and chaos re-runs.
 	color_picker_button.popup_closed.connect(func():
 		preset.set(prop_stringname, color_picker_button.color)
-		preset.emit_changed()
 	)
 "
 

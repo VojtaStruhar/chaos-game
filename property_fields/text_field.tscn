@@ -20,7 +20,6 @@ func setup(data: Dictionary) -> void:
 	
 	line_edit.text_submitted.connect(func(v):
 		preset.set(prop_stringname, v)
-		preset.emit_changed()
 	)
 "
 

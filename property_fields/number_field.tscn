@@ -33,7 +33,6 @@ func setup(data: Dictionary):
 	
 	spin_box.value_changed.connect(func(v):
 		preset.set(prop_stringname, v)
-		preset.emit_changed()
 	)
 "
 

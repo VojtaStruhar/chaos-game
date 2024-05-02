@@ -127,7 +127,9 @@ func assign_preset(p: ChaosPreset) -> void:
 	
 	# Hook up signals
 	panel_tool.preset = preset
-	preset.changed.connect(run_chaos_game)
+	preset.chaos_changed.connect(run_chaos_game)
+	preset.ui_changed.connect(update_ui)
+	
 
 
 ## Adds the point to helper line and creates vertex handles
@@ -148,3 +150,9 @@ func clear_point_helpers() -> void:
 	helper_line.clear_points()
 	for child in helper_line.get_children():
 		child.queue_free()
+
+func update_ui() -> void:
+	helper_line.default_color.a = 1 if preset.show_helper_line else 0
+	
+	for handle in helper_line.get_children():
+		(handle as Node2D).visible = preset.show_vertices
