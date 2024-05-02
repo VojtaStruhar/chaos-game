@@ -7,9 +7,9 @@ script/source = "extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	var filename = \"optimal_heptagon.tres\"
-	var ngon = 7
-	var dir = Vector2.UP * 0.4
+	var filename = \"optimal_octagon.tres\"
+	var ngon = 8
+	var dir = Vector2.RIGHT * 0.4
 	
 	
 	var point = Vector2(0.5, 0.5)

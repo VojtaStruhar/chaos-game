@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ChaosPreset" load_steps=2 format=3 uid="uid://c8olq4a0rhfua"]
+
+[ext_resource type="Script" path="res://chaos_preset.gd" id="1_52qol"]
+
+[resource]
+script = ExtResource("1_52qol")
+name = "Optimal Octagon"
+iterations = 100000
+ratio = 0.707
+points = Array[Vector2]([Vector2(0.9, 0.5), Vector2(0.782843, 0.782843), Vector2(0.5, 0.9), Vector2(0.217157, 0.782843), Vector2(0.1, 0.5), Vector2(0.217157, 0.217157), Vector2(0.5, 0.1), Vector2(0.782843, 0.217157)])
+points_color = Color(0, 0, 0, 1)
+background_color = Color(1, 1, 1, 1)
+can_add_points = false
+can_move_points = true
+show_vertices = true
+show_helper_line = true
