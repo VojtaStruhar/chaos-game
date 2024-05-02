@@ -11,6 +11,7 @@ var preset: ChaosPreset:
 const NUMBER_FIELD = preload("res://property_fields/number_field.tscn")
 const TEXT_FIELD = preload("res://property_fields/text_field.tscn")
 const CHECKBOX_FIELD = preload("res://property_fields/checkbox_field.tscn")
+const COLOR_FIELD = preload("res://property_fields/color_field.tscn")
 
 func build_ui():
 	var props = preset.get_property_list()
@@ -31,6 +32,8 @@ func build_ui():
 				field_node = TEXT_FIELD.instantiate()
 			elif prop_type == TYPE_BOOL:
 				field_node = CHECKBOX_FIELD.instantiate()
+			elif prop_type == TYPE_COLOR:
+				field_node = COLOR_FIELD.instantiate()
 			
 			# If this prop has a field
 			if field_node != null:

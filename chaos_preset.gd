@@ -1,10 +1,8 @@
 class_name ChaosPreset extends Resource
 
-## Name of this particular preset.
-@export var name: String = "New ChaosPreset"
 
-## Canvas size. It's always a square.
-@export_range(1024, 4096, 512) var canvas_size: int = 1024
+## Name of this particular preset.
+@export var name: String = "New Chaos Preset"
 
 ## How many iterations should the chaos game run for
 @export_range(5_000, 1_000_000, 5_000) var iterations: int = 100_000
@@ -15,14 +13,20 @@ class_name ChaosPreset extends Resource
 ## Vertices on the canvas. Format: [0, 0] is topleft and [1,1] bottom right.
 @export var points: Array[Vector2] = []
 
+## Always a square.
+var canvas_size: int = 1024
+
+## Color for the drawn points
+@export var points_color: Color = Color.BLACK
+
+## Canvas color
+@export var background_color: Color = Color.WHITE
+
 ## If adding new points is allowed
 @export var can_add_points: bool = true
 
 ## If moving points is allowed
 @export var can_move_points: bool = true
-
-## Canvas color
-@export var background_color: Color = Color.WHITE
 
 ## Show helper "handles" on vertices
 @export var show_vertices: bool = true

@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://b863bj7rwa5v8"]
+
+[sub_resource type="GDScript" id="GDScript_v3b2n"]
+resource_name = "ColorField"
+script/source = "extends PropertyField
+
+@onready var label: Label = $Label
+@onready var color_picker_button: ColorPickerButton = $ColorPickerButton
+
+
+var prop_stringname: StringName
+
+func setup(data: Dictionary) -> void:
+	var prop_name = data[\"name\"]
+	prop_stringname = StringName(prop_name)
+	label.text = prop_name.to_pascal_case()
+	
+	color_picker_button.color = preset.get(prop_stringname)
+	
+	# Only propagates after closing the popup. Rapidly changing color shouldn't
+	# trigger changes and chaos re-runs.
+	color_picker_button.popup_closed.connect(func():
+		preset.set(prop_stringname, color_picker_button.color)
+		preset.emit_changed()
+	)
+"
+
+[node name="color_field" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+script = SubResource("GDScript_v3b2n")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color field
+"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
