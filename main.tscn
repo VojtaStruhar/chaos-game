@@ -43,6 +43,7 @@ layout_mode = 2
 
 [node name="PropertiesContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="HSeparator2" type="HSeparator" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2

@@ -18,6 +18,7 @@ const GROUP_PANEL = preload("res://property_fields/group_panel.tscn")
 func build_ui():
 	
 	for child in properties_container.get_children():
+		properties_container.remove_child(child)
 		child.queue_free()
 	
 	var properties_target: Control = properties_container
@@ -25,16 +26,17 @@ func build_ui():
 	var props = preset.get_property_list()
 	
 	for prop in props:
-		# This is an exported variable
 		var prop_usage = prop["usage"]
+		
+		# This is a shadow property indicating the start of a group. 
+		# Put all following fields into a special panel.
 		if prop_usage & PROPERTY_USAGE_GROUP:
-			print(prop["name"], " - ", type_string(prop["type"]), "; ", prop)
 			properties_target = GROUP_PANEL.instantiate()
 			properties_target.name = prop["name"]
 			properties_container.add_child(properties_target)
 			continue
-			
 		
+		# This is a custom exported variable - that's what we want
 		if prop_usage & PROPERTY_USAGE_EDITOR and prop_usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
 			var prop_type = prop["type"]
 			var field_node = null

@@ -31,3 +31,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Group name"
 horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
