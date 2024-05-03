@@ -56,28 +56,7 @@ func add_point(uv_coords: Vector2) -> void:
 
 
 func run_chaos_game() -> void:
-	if preset.points.size() < 2:
-		print("[WARNING] Cannot run chaos game with ", preset.points.size(), " points!")
-		return
-	
-	clear_canvas()
-	
-	var current_point: Vector2 = preset.points.pick_random()
-	
-	for i in range(preset.iterations):
-		var goal: Vector2 = preset.points.pick_random()
-		var move: Vector2 = (goal - current_point) * preset.ratio
-		
-		current_point += move
-		
-		if current_point.x < 0 or current_point.x >= 1 or current_point.y < 0 or current_point.y >= 1:
-			continue
-		
-		game_image.set_pixelv(
-			current_point * preset.canvas_size, 
-			Color.BLACK
-		)
-	
+	ChaosGame.run_iterative(preset, game_image)
 	game_texture.update(game_image)
 
 

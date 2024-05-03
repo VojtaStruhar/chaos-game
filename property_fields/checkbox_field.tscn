@@ -15,8 +15,11 @@ func setup(data: Dictionary) -> void:
 	label.text = prop_name.to_pascal_case()
 	
 	check_box.button_pressed = preset.get(prop_stringname)
+	check_box.text = \"ON\" if check_box.button_pressed else \"OFF\"
+	
 	check_box.toggled.connect(func(v):
 		preset.set(prop_stringname, v)
+		check_box.text = \"ON\" if v else \"OFF\"
 	)
 "
 
