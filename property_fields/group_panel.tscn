@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy23da3uc5cjk"]
+
+[sub_resource type="GDScript" id="GDScript_l0yaq"]
+resource_name = "GroupPanel"
+script/source = "extends PanelContainer
+
+@onready var label: Label = $MarginContainer/VBoxContainer/Label
+@onready var v_box_container: VBoxContainer = $MarginContainer/VBoxContainer
+
+func _ready() -> void:
+	label.text = name
+
+func add_field(node: Node) -> void:
+	v_box_container.add_child(node)
+"
+
+[node name="GroupPanel" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+script = SubResource("GDScript_l0yaq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Group name"
+horizontal_alignment = 1

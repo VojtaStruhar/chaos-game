@@ -40,6 +40,8 @@ var canvas_size: int = 1024
 		background_color = v
 		chaos_changed.emit()
 
+@export_group("UI Settings")
+
 ## If adding new points is allowed
 @export var can_add_points: bool = true
 
