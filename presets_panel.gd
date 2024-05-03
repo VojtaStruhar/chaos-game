@@ -24,13 +24,23 @@ func _ready() -> void:
 			var chaos_preset = ResourceLoader.load(presets_dir_path + "/" + file_name)
 			if chaos_preset is ChaosPreset:
 				presets_dict[file_name] = chaos_preset
-				var item = tree_root.create_child()
-				item.set_text(0, chaos_preset.name)
-				item.set_metadata(0, file_name)
 			
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
+	
+	# Create the items sorted by filenames
+	
+	var filenames = []
+	for key in presets_dict:
+		filenames.append(key)
+	filenames.sort()
+	
+	for file_name in filenames:
+		var chaos_preset = presets_dict[file_name]
+		var item = tree_root.create_child()
+		item.set_text(0, chaos_preset.name)
+		item.set_metadata(0, file_name)
 
 func select_preset() -> void:
 	var selected = tree.get_selected()
