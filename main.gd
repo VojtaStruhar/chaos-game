@@ -35,6 +35,7 @@ func _ready() -> void:
 	
 	panel_presets.on_preset_selected.connect(func(p):
 		assign_preset(p)
+		update_ui()
 		run_chaos_game()
 	)
 	
@@ -56,7 +57,7 @@ func add_point(uv_coords: Vector2) -> void:
 
 
 func run_chaos_game() -> void:
-	ChaosGame.run_recursive(preset, game_image, 9)
+	ChaosGame.run_iterative(preset, game_image)
 	game_texture.update(game_image)
 
 
