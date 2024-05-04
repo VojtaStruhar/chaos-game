@@ -47,15 +47,26 @@ var canvas_size: int = 1024
 		rule_prevent_same_vertex = v
 		chaos_changed.emit()
 
-@export var rule_prevent_next_neighbor: bool = false:
+@export var rule_prevent_next: bool = false:
 	set(v):
-		rule_prevent_next_neighbor = v
+		rule_prevent_next = v
 		chaos_changed.emit()
 
-@export var rule_prevent_previous_neighbor: bool = false:
+@export var rule_prevent_next_next: bool = false:
 	set(v):
-		rule_prevent_previous_neighbor = v
+		rule_prevent_next_next = v
+		chaos_changed.emit()
+
+@export var rule_prevent_previous: bool = false:
+	set(v):
+		rule_prevent_previous = v
 		chaos_changed.emit() 
+
+@export var rule_prevent_previous_previous: bool = false:
+	set(v):
+		rule_prevent_previous_previous = v
+		chaos_changed.emit() 
+
 
 @export_group("UI Settings")
 

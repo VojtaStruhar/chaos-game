@@ -22,10 +22,14 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 		# Apply rules here
 		if preset.rule_prevent_same_vertex:
 			remove_indices.append(current_index)
-		if preset.rule_prevent_next_neighbor:
+		if preset.rule_prevent_next:
 			remove_indices.append((current_index + 1) % preset.points.size())
-		if preset.rule_prevent_previous_neighbor:
+		if preset.rule_prevent_next_next:
+			remove_indices.append((current_index + 2) % preset.points.size())
+		if preset.rule_prevent_previous:
 			remove_indices.append((current_index - 1 + preset.points.size()) % preset.points.size())
+		if preset.rule_prevent_previous_previous:
+			remove_indices.append((current_index - 2 + preset.points.size()) % preset.points.size())
 		
 		# Remove (potential) duplicates
 		var remove_indices_unique = []
