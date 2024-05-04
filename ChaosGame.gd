@@ -12,16 +12,34 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 	
 	image.fill(preset.background_color)
 	
-	
 	# Vertex as key, array of vertices as value
 	var vertex_picks: Dictionary = {}
 	for point in preset.points:
 		var point_possibilities = preset.points.duplicate()
+		var current_index = point_possibilities.find(point)
+		var remove_indices: Array[int] = []
 		
 		# Apply rules here
 		if preset.rule_prevent_same_vertex:
-			point_possibilities.remove_at(point_possibilities.find(point))
+			remove_indices.append(current_index)
+		if preset.rule_prevent_next_neighbor:
+			remove_indices.append((current_index + 1) % preset.points.size())
+		if preset.rule_prevent_previous_neighbor:
+			remove_indices.append((current_index - 1 + preset.points.size()) % preset.points.size())
 		
+		# Remove (potential) duplicates
+		var remove_indices_unique = []
+		for i in remove_indices:
+			if i not in remove_indices_unique:
+				remove_indices_unique.append(i)
+		
+		# Remove possibilities - iterate from the end. That's the reason for the sort here.
+		remove_indices_unique.sort()
+		for i in range(remove_indices_unique.size()):
+			var remove_index = remove_indices_unique.pop_back()
+			point_possibilities.remove_at(remove_index)
+		
+		# Finally
 		vertex_picks[point] = point_possibilities
 	
 	# No previous pick, so pick from everything. This changes later.
