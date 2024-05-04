@@ -16,6 +16,7 @@ var should_add_points: bool = true
 
 @onready var panel_tool: MarginContainer = %Tool
 @onready var panel_presets: MarginContainer = %Presets
+@onready var panel_export: MarginContainer = %Export
 @onready var run_chaos_button: Button = %RunChaosButton
 @onready var clear_canvas_button: Button = %ClearCanvasButton
 @onready var new_preset_button: Button = %NewPresetButton
@@ -106,6 +107,7 @@ func assign_preset(p: ChaosPreset) -> void:
 	
 	# Hook up signals
 	panel_tool.preset = preset
+	panel_export.preset = preset
 	preset.chaos_changed.connect(run_chaos_game)
 	preset.ui_changed.connect(update_ui)
 	
