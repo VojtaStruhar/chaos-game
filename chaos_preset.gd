@@ -42,7 +42,10 @@ var canvas_size: int = 1024
 
 @export_group("Rules")
 
-@export var rule_prevent_same_vertex: bool = false
+@export var rule_prevent_same_vertex: bool = false:
+	set(v):
+		rule_prevent_same_vertex = v
+		chaos_changed.emit()
 
 @export_group("UI Settings")
 

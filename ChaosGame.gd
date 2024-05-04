@@ -12,19 +12,35 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 	
 	image.fill(preset.background_color)
 	
-	var current_point: Vector2 = preset.points.pick_random()
+	
+	# Vertex as key, array of vertices as value
+	var vertex_picks: Dictionary = {}
+	for point in preset.points:
+		var point_possibilities = preset.points.duplicate()
+		
+		# Apply rules here
+		if preset.rule_prevent_same_vertex:
+			point_possibilities.remove_at(point_possibilities.find(point))
+		
+		vertex_picks[point] = point_possibilities
+	
+	# No previous pick, so pick from everything. This changes later.
+	var possibilities = preset.points.duplicate()
+	var paint_pos: Vector2 = possibilities.pick_random()
 	
 	for i in range(preset.iterations):
-		var goal: Vector2 = preset.points.pick_random()
-		var move: Vector2 = (goal - current_point) * preset.ratio
+		var goal: Vector2 = possibilities.pick_random()
+		possibilities = vertex_picks[goal]
 		
-		current_point += move
+		var move: Vector2 = (goal - paint_pos) * preset.ratio
 		
-		if current_point.x < 0 or current_point.x >= 1 or current_point.y < 0 or current_point.y >= 1:
+		paint_pos += move
+		
+		if paint_pos.x < 0 or paint_pos.x >= 1 or paint_pos.y < 0 or paint_pos.y >= 1:
 			continue
 		
 		image.set_pixelv(
-			current_point * preset.canvas_size, 
+			paint_pos * preset.canvas_size, 
 			preset.points_color
 		)
 
