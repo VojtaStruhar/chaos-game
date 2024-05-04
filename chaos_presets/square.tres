@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ChaosPreset" load_steps=2 format=3 uid="uid://b327yu1juy3f4"]
+
+[ext_resource type="Script" path="res://chaos_preset.gd" id="1_lfkj0"]
+
+[resource]
+script = ExtResource("1_lfkj0")
+name = "Square"
+iterations = 50000
+ratio = 0.5
+points = Array[Vector2]([Vector2(0.2, 0.2), Vector2(0.8, 0.2), Vector2(0.8, 0.8), Vector2(0.2, 0.8)])
+points_color = Color(0, 0, 0, 1)
+background_color = Color(1, 1, 1, 1)
+rule_prevent_same_vertex = false
+can_add_points = true
+can_move_points = true
+show_vertices = true
+show_helper_line = true
