@@ -40,6 +40,10 @@ var canvas_size: int = 1024
 		background_color = v
 		chaos_changed.emit()
 
+@export_group("Rules")
+
+@export var rule_prevent_same_vertex: bool = false
+
 @export_group("UI Settings")
 
 ## If adding new points is allowed
