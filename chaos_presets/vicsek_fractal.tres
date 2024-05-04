@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ChaosPreset" load_steps=2 format=3 uid="uid://bj4ypy1x8ioxl"]
+
+[ext_resource type="Script" path="res://chaos_preset.gd" id="1_uk5ht"]
+
+[resource]
+script = ExtResource("1_uk5ht")
+name = "Vicsek Fractal"
+iterations = 100000
+ratio = 0.667
+points = Array[Vector2]([Vector2(0.25, 0.25), Vector2(0.75, 0.25), Vector2(0.75, 0.75), Vector2(0.25, 0.75), Vector2(0.5, 0.5)])
+points_color = Color(0, 0, 0, 1)
+background_color = Color(1, 1, 1, 1)
+rule_prevent_same_vertex = false
+can_add_points = false
+can_move_points = true
+show_vertices = true
+show_helper_line = false
