@@ -10,6 +10,7 @@
 size = Vector2(1024, 1024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vicio"]
+size = Vector2(1024, 1024)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gnx52")
@@ -97,14 +98,20 @@ unique_name_in_owner = true
 position = Vector2(546, 547)
 texture = SubResource("PlaceholderTexture2D_3tlp1")
 
-[node name="MouseDetect" type="Area2D" parent="Game"]
-unique_name_in_owner = true
-script = ExtResource("2_6dac1")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/MouseDetect"]
-shape = SubResource("RectangleShape2D_vicio")
-
 [node name="HelperLine" type="Line2D" parent="Game"]
 closed = true
 width = 2.0
 default_color = Color(1, 0, 1, 1)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Game"]
+remote_path = NodePath("../../MouseDetect")
+update_rotation = false
+update_scale = false
+
+[node name="MouseDetect" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(546, 547)
+script = ExtResource("2_6dac1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetect"]
+shape = SubResource("RectangleShape2D_vicio")

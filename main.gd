@@ -39,10 +39,8 @@ func _ready() -> void:
 		run_chaos_game()
 	)
 	
-	get_viewport().size_changed.connect(func():
-		var vp_rect: Rect2 = get_viewport_rect()
-		game_sprite.position = Vector2(vp_rect.size.y / 2, vp_rect.size.y / 2)
-	)
+	scale_canvas_to_viewport()
+	get_viewport().size_changed.connect(scale_canvas_to_viewport)
 	
 	mouse_detect.on_add_point.connect(add_point)
 
@@ -98,7 +96,6 @@ func assign_preset(p: ChaosPreset) -> void:
 	game_sprite.texture = game_texture
 	
 	mouse_detect.preset = preset
-	mouse_detect.set_size(preset.canvas_size)
 	
 	# The image and mouse area rect are "centered" --> offset the entire helper line so that
 	# it lines up nicely
@@ -138,3 +135,14 @@ func update_ui() -> void:
 	
 	for handle in helper_line.get_children():
 		(handle as Node2D).visible = preset.show_vertices
+
+func scale_canvas_to_viewport() -> void:
+	var vp_rect: Rect2 = get_viewport_rect()
+	var height = vp_rect.size.y
+	game_sprite.position = Vector2(height / 2, height / 2)
+	
+	var margin = 20
+	var canvas_scale = (height - margin) / preset.canvas_size
+	game_sprite.scale = Vector2(canvas_scale, canvas_scale)
+	
+	mouse_detect.set_size(height - margin)

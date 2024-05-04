@@ -11,6 +11,8 @@ signal on_add_point(Vector2)
 func _ready() -> void:
 	mouse_entered.connect(func(): mouse_in = true)
 	mouse_exited.connect(func(): mouse_in = false)
+	
+	
 
 
 func _process(_delta: float) -> void:
