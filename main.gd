@@ -56,8 +56,9 @@ func add_point(uv_coords: Vector2) -> void:
 
 
 func run_chaos_game() -> void:
-	ChaosGame.run_recursive(preset, game_image, 9)
-	game_texture.update(game_image)
+	ChaosGame.generation_finished.connect(func(): game_texture.update(game_image), CONNECT_ONE_SHOT)
+	ChaosGame.run_recursive_threaded(preset, game_image, 9)
+	
 
 
 func reset_chaos_game() -> void:

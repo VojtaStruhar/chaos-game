@@ -1,5 +1,29 @@
 extends Node
 
+var thread = Thread.new()
+var timer = Timer.new()
+
+func _ready() -> void:
+	timer.autostart = false
+	timer.one_shot = false
+	timer.wait_time = 0.5
+	timer.timeout.connect(func():
+		if thread.is_alive():
+			print("Waiting...")
+		else:
+			print("Generation finished!!!")
+			timer.stop()
+			generation_finished.emit()
+	)
+	add_child(timer)
+
+func _exit_tree() -> void:
+	thread.wait_to_finish()
+
+## Signals to the world that the work is done. Only subscribe to this
+## with the [code]CONNECT_ONE_SHOT[/code] flag when you need it.
+signal generation_finished
+
 ## Runs an 'iterative' approach to chaos game. It picks vertices at random
 ## for an arbitrary number of iterations. Produces only approximate results,
 ## but depending on the number of iterations can be very fast.
@@ -66,4 +90,6 @@ func _recursive_fractal(preset: ChaosPreset, image: Image, current: Vector2, lev
 		
 		_recursive_fractal(preset, image, paint_pos, level - 1)
 
-	
+func run_recursive_threaded(preset: ChaosPreset, image: Image, level: int) -> void:
+	thread.start(run_recursive.bind(preset, image, level))
+	timer.start()
