@@ -12,39 +12,8 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 	
 	image.fill(preset.background_color)
 	
-	# Vertex as key, array of vertices as value
-	var vertex_picks: Dictionary = {}
-	for point in preset.points:
-		var point_possibilities = preset.points.duplicate()
-		var current_index = point_possibilities.find(point)
-		var remove_indices: Array[int] = []
-		
-		# Apply rules here
-		if preset.rule_prevent_same_vertex:
-			remove_indices.append(current_index)
-		if preset.rule_prevent_next:
-			remove_indices.append((current_index + 1) % preset.points.size())
-		if preset.rule_prevent_next_next:
-			remove_indices.append((current_index + 2) % preset.points.size())
-		if preset.rule_prevent_previous:
-			remove_indices.append((current_index - 1 + preset.points.size()) % preset.points.size())
-		if preset.rule_prevent_previous_previous:
-			remove_indices.append((current_index - 2 + preset.points.size()) % preset.points.size())
-		
-		# Remove (potential) duplicates
-		var remove_indices_unique = []
-		for i in remove_indices:
-			if i not in remove_indices_unique:
-				remove_indices_unique.append(i)
-		
-		# Remove possibilities - iterate from the end. That's the reason for the sort here.
-		remove_indices_unique.sort()
-		for i in range(remove_indices_unique.size()):
-			var remove_index = remove_indices_unique.pop_back()
-			point_possibilities.remove_at(remove_index)
-		
-		# Finally
-		vertex_picks[point] = point_possibilities
+	# Apply rules
+	var vertex_picks: Dictionary = calculate_vertex_picks(preset)
 	
 	# No previous pick, so pick from everything. This changes later.
 	var possibilities = preset.points.duplicate()
@@ -65,8 +34,6 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 			paint_pos * preset.canvas_size, 
 			preset.points_color
 		)
-
-
 
 
 ## Runs a 'perfect' version of the chaos game up to a certain recursion level.
@@ -104,4 +71,38 @@ func _recursive_fractal(preset: ChaosPreset, image: Image, current: Vector2, lev
 		
 		_recursive_fractal(preset, image, paint_pos, level - 1)
 
+func calculate_vertex_picks(preset: ChaosPreset) -> Dictionary:
+	var result = {}
+	for point in preset.points:
+		var point_possibilities = preset.points.duplicate()
+		var current_index = point_possibilities.find(point)
+		var remove_indices: Array[int] = []
+		
+		# Apply rules here
+		if preset.rule_prevent_same_vertex:
+			remove_indices.append(current_index)
+		if preset.rule_prevent_next:
+			remove_indices.append((current_index + 1) % preset.points.size())
+		if preset.rule_prevent_next_next:
+			remove_indices.append((current_index + 2) % preset.points.size())
+		if preset.rule_prevent_previous:
+			remove_indices.append((current_index - 1 + preset.points.size()) % preset.points.size())
+		if preset.rule_prevent_previous_previous:
+			remove_indices.append((current_index - 2 + preset.points.size()) % preset.points.size())
+		
+		# Remove (potential) duplicates
+		var remove_indices_unique = []
+		for i in remove_indices:
+			if i not in remove_indices_unique:
+				remove_indices_unique.append(i)
+		
+		# Remove possibilities - iterate from the end. That's the reason for the sort here.
+		remove_indices_unique.sort()
+		for i in range(remove_indices_unique.size()):
+			var remove_index = remove_indices_unique.pop_back()
+			point_possibilities.remove_at(remove_index)
+		
+		# Finally
+		result[point] = point_possibilities
 	
+	return result

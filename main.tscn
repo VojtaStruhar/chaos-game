@@ -34,11 +34,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
 
 [node name="Tool" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("3_vdhes")
 
@@ -77,6 +75,7 @@ text = "Run Chaos Game!"
 
 [node name="Presets" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("4_8deob")
 presets_dir_path = "res://chaos_presets"

@@ -26,7 +26,7 @@ func append_point(point: Vector2) -> void:
 	chaos_changed.emit()
 
 ## Always a square.
-var canvas_size: int = 1024 * 2
+var canvas_size: int = 1024
 
 ## Color for the drawn points
 @export var points_color: Color = Color.BLACK:
