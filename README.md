@@ -1,22 +1,21 @@
+
+![result fractal](result.png)
+
 ## TODO
 
+- **Export**
+  - Put the recursive fractal calculation on a background thread?
+    - There is no point in interacting with the UI while the thing is generating, it's just nice
+    - Adjust the *expected steps* hint calculation - take into account that with rules, some vertices are omitted, making the calculation potentially much faster!
+
 - Configuration
-  - [x] Ratio
-  - Point colors maybe?
-  - RULES
-    - Probably just a bunch of checkboxes. I can't imagine leaving it up to the user with expressions or something.
-    - Don't pick tha same point a again; Skip at least one; Don't pick the point 1 clockwise (order of points starts to matter?!)
-      - Pre-calculate the options for each point beforehand *if possible*. You don't want to be evaluating the rules 100k times.
-- Presets
-  - [x] the usual interesting stuff. Regular polygons with interesting ratios.
+  - Have a separate `float` field with a slider, if the **range** is small enough (like from 0 to 5 or something)
+
 - Snap points to a grid. Maybe just a square grid at first. Show guidance lines.
 - Edit currently placed points
-  - [x] Add (default click)
-  - Remove (Right click?)
-  - [x] Move (drag)
+  - Remove (Right click
   - Detect input events directly in the mouse  detector. Input actions are not suitable for this I think.
   - Not sure if I can re-render for every change (smooth). Maybe with a small number of iterations? Just for a preview
-
 
 ## Resources
 

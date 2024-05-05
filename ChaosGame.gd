@@ -36,6 +36,11 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 		)
 
 
+# Compute this dict ahead of time from running a recursive (export) algorithm.
+# I'll just put this here in global scope for future threaded approach.
+var _recursive_picks: Dictionary = {}
+var _recursive_possibilities: Array[Vector2] = []
+
 ## Runs a 'perfect' version of the chaos game up to a certain recursion level.
 ## No randomness - creates a perfect image, but the depth of the fractal is capped.
 func run_recursive(preset: ChaosPreset, image: Image, level: int) -> void:
@@ -43,19 +48,21 @@ func run_recursive(preset: ChaosPreset, image: Image, level: int) -> void:
 		print("[WARNING] Cannot run chaos game with ", preset.points.size(), " points!")
 		return
 	
-	print("[INFO] Running recursive fractal drawing. Expected steps: ", pow(preset.points.size(), level))
 	
+	_recursive_picks = calculate_vertex_picks(preset)
+	print("[INFO] Running recursive fractal drawing. Expected steps: ", pow(preset.points.size(), level))
 	image.fill(preset.background_color)
 	
 	for point in preset.points:
-		_recursive_fractal(preset, image, point, level)
+		_recursive_fractal(preset, _recursive_picks[point], image, point, level)
 
 
-func _recursive_fractal(preset: ChaosPreset, image: Image, current: Vector2, level: int) -> void:
+func _recursive_fractal(preset: ChaosPreset, possibilities: Array[Vector2], image: Image, current: Vector2, level: int) -> void:
 	if level == 0:
 		return
+	
+	for goal in possibilities:
 		
-	for goal in preset.points:
 		var paint_pos: Vector2 = (goal - current) * preset.ratio + current
 		
 		if paint_pos.x < 0 or paint_pos.x >= 1 or paint_pos.y < 0 or paint_pos.y >= 1:
@@ -69,7 +76,7 @@ func _recursive_fractal(preset: ChaosPreset, image: Image, current: Vector2, lev
 		# TODO: Not sure if I shoudn't run the recursive thing for invalid positions too.
 		#       Still might draw something
 		
-		_recursive_fractal(preset, image, paint_pos, level - 1)
+		_recursive_fractal(preset, _recursive_picks[goal], image, paint_pos, level - 1)
 
 func calculate_vertex_picks(preset: ChaosPreset) -> Dictionary:
 	var result = {}
