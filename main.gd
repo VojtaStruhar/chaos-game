@@ -27,7 +27,7 @@ const VERTEX_HANDLE = preload("res://vertex_handle.tscn")
 
 func _ready() -> void:
 	if preset == null:
-		print("[INFO] No preset - creating a default one")
+		Logger.info("No preset - creating a default one")
 		assign_preset(ChaosPreset.new())
 	
 	run_chaos_button.pressed.connect(run_chaos_game)
@@ -48,7 +48,6 @@ func _ready() -> void:
 
 func add_point(uv_coords: Vector2) -> void:
 	if not should_add_points:
-		print("[INFO] Rejecting add_point")
 		return
 	
 	preset.append_point(uv_coords)

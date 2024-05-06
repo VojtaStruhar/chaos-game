@@ -26,10 +26,13 @@ func export() -> void:
 	var image: Image = Image.create(export_preset.canvas_size, export_preset.canvas_size, false, Image.FORMAT_RGBA8)
 	ChaosGame.run_recursive(export_preset, image, export_level.value)
 	
-	var err = image.save_png("result.png")
-	print(error_string(err))
-	
 	accept_dialog.show()
+	Logger.info("Export complete")
+	
+	var err = image.save_png("result.png")
+	if err != OK:
+		Logger.error("Failed to save exported image")
+	
 
 func _update_expected_steps(new_recursion_level) -> void:
 	expected_steps_label.text = str(

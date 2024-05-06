@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://by4871thql3of"]
+
+[ext_resource type="Script" path="res://console.gd" id="1_vceq7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6olfu"]
+font_size = 15
+font_color = Color(0.721569, 0.721569, 0.721569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i3f70"]
+font_color = Color(0.976471, 0.756863, 0.141176, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5i2cd"]
+font_size = 17
+font_color = Color(1, 0.101961, 0.0705882, 1)
+
+[node name="Console" type="PanelContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 150)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 35.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_vceq7")
+info_label = SubResource("LabelSettings_6olfu")
+warning_label = SubResource("LabelSettings_i3f70")
+error_label = SubResource("LabelSettings_5i2cd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+text = "Logs console"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LogsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

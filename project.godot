@@ -17,7 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ChaosGame="*res://ChaosGame.gd"
+Logger="*res://singletons/Logger.gd"
+ChaosGame="*res://singletons/ChaosGame.gd"
 
 [display]
 

@@ -7,7 +7,7 @@ extends Node
 ## Useful for prototyping.
 func run_iterative(preset: ChaosPreset, image: Image) -> void:
 	if preset.points.size() < 2:
-		print("[WARNING] Cannot run chaos game with ", preset.points.size(), " points!")
+		Logger.warning("Cannot run chaos game with " + str(preset.points.size()) + " points!")
 		return
 	
 	image.fill(preset.background_color)
@@ -45,12 +45,12 @@ var _recursive_possibilities: Array[Vector2] = []
 ## No randomness - creates a perfect image, but the depth of the fractal is capped.
 func run_recursive(preset: ChaosPreset, image: Image, level: int) -> void:
 	if preset.points.size() < 2:
-		print("[WARNING] Cannot run chaos game with ", preset.points.size(), " points!")
+		Logger.warning("Cannot run chaos game with " + str(preset.points.size()) + " points!")
 		return
 	
 	
 	_recursive_picks = calculate_vertex_picks(preset)
-	print("[INFO] Running recursive fractal drawing. Estimated steps: ", estimate_recursive_steps(_recursive_picks, level))
+	Logger.info("Running recursive fractal drawing. Estimated steps: " + str(estimate_recursive_steps(_recursive_picks, level)))
 	image.fill(preset.background_color)
 	
 	for point in preset.points:
@@ -117,6 +117,8 @@ func calculate_vertex_picks(preset: ChaosPreset) -> Dictionary:
 
 
 func estimate_recursive_steps(picks: Dictionary, level: int) -> int:
+	if len(picks) == 0:
+		return 0
 	var total = 0
 	for key in picks:
 		total += picks[key].size()

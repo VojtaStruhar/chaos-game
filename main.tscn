@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4atwge0pv80"]
+[gd_scene load_steps=10 format=3 uid="uid://c4atwge0pv80"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_gnx52"]
 [ext_resource type="Theme" uid="uid://dwpq5fy6hwu8f" path="res://sidebar_theme.tres" id="2_0h620"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://tool_panel.gd" id="3_vdhes"]
 [ext_resource type="Script" path="res://presets_panel.gd" id="4_8deob"]
 [ext_resource type="PackedScene" uid="uid://cc63afj3rd6kt" path="res://export_panel.tscn" id="5_4aft5"]
+[ext_resource type="PackedScene" uid="uid://by4871thql3of" path="res://console.tscn" id="6_4xgvq"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3tlp1"]
 size = Vector2(1024, 1024)
@@ -18,8 +19,8 @@ script = ExtResource("1_gnx52")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SidePanel" type="Control" parent="CanvasLayer"]
-layout_mode = 3
+[node name="SidePanel" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = -1
 anchor_left = 0.66
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,65 +28,68 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("2_0h620")
 
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/SidePanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel"]
+layout_mode = 2
 
-[node name="Tool" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/SidePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Tool" type="MarginContainer" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("3_vdhes")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool"]
 layout_mode = 2
 
-[node name="PropertiesContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="PropertiesContainer" type="VBoxContainer" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
 
-[node name="StaticButtons" type="VBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer"]
+[node name="StaticButtons" type="VBoxContainer" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer/StaticButtons"]
 layout_mode = 2
 
-[node name="ClearCanvasButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons/HBoxContainer"]
+[node name="ClearCanvasButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer/StaticButtons/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Clear canvas"
 
-[node name="NewPresetButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons/HBoxContainer"]
+[node name="NewPresetButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer/StaticButtons/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "New Preset"
 
-[node name="RunChaosButton" type="Button" parent="CanvasLayer/SidePanel/TabContainer/Tool/VBoxContainer/StaticButtons"]
+[node name="RunChaosButton" type="Button" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Tool/VBoxContainer/StaticButtons"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Run Chaos Game!"
 
-[node name="Presets" type="MarginContainer" parent="CanvasLayer/SidePanel/TabContainer"]
+[node name="Presets" type="MarginContainer" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(2.08165e-12, 500)
 layout_mode = 2
 script = ExtResource("4_8deob")
 presets_dir_path = "res://chaos_presets"
 
-[node name="Tree" type="Tree" parent="CanvasLayer/SidePanel/TabContainer/Presets"]
+[node name="Tree" type="Tree" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Presets"]
 layout_mode = 2
 
-[node name="Export" parent="CanvasLayer/SidePanel/TabContainer" instance=ExtResource("5_4aft5")]
+[node name="Export" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer" instance=ExtResource("5_4aft5")]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(2.08165e-12, 500)
+layout_mode = 2
+
+[node name="Console" parent="CanvasLayer/SidePanel/VBoxContainer" instance=ExtResource("6_4xgvq")]
 layout_mode = 2
 
 [node name="Game" type="Sprite2D" parent="."]

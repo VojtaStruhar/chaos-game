@@ -17,7 +17,10 @@ func _ready() -> void:
 	tree.item_selected.connect(select_preset)
 	
 	if dir:
-		dir.list_dir_begin()
+		var err = dir.list_dir_begin()
+		if err != OK:
+			print(error_string(err))
+			return
 		var file_name = dir.get_next()
 		while file_name != "":
 			
@@ -49,5 +52,7 @@ func select_preset() -> void:
 	
 	var filename: String = selected.get_metadata(0)
 	var chosen_preset: ChaosPreset = presets_dict[filename]
+	
+	Logger.info("Loading preset: " + chosen_preset.name)
 	
 	on_preset_selected.emit(chosen_preset.duplicate(true))
