@@ -82,6 +82,17 @@ func recalculate_points() -> void:
 	
 	run_chaos_game()
 
+func reload_points() -> void:
+	helper_line.clear_points()
+	preset.points.clear()
+	should_add_points = true
+	
+	for i in helper_line.get_child_count():
+		var handle = helper_line.get_child(i)
+		preset.points.append(handle.position / preset.canvas_size)
+		helper_line.add_point(handle.position)
+	
+	run_chaos_game()
 
 ## Accepts a preset from the outside, integrates its values and then assigns it 
 ## as the current one.
@@ -122,6 +133,8 @@ func create_point_helper(uv_coords: Vector2) -> void:
 	handle.on_mouse_entered.connect(func(): should_add_points = false)
 	handle.on_mouse_exited.connect(func(): should_add_points = true)
 	handle.on_drag.connect(recalculate_points)
+	handle.on_delete.connect(reload_points)
+	
 	helper_line.add_child(handle)
 	handle.position = image_coords
 

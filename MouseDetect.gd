@@ -15,7 +15,7 @@ func on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		return
 	event = event as InputEventMouseButton
 	
-	if preset.can_add_points and event.pressed:
+	if preset.can_add_points and event.pressed and event.button_index == 1:
 		var mpos = event.position
 		var rect = (collision_shape.shape as RectangleShape2D).get_rect()
 		var rect_global_position = collision_shape.global_position + rect.position
