@@ -9,6 +9,7 @@ var preset: ChaosPreset:
 @onready var properties_container: VBoxContainer = $VBoxContainer/PropertiesContainer
 
 const NUMBER_FIELD = preload("res://property_fields/number_field.tscn")
+const FLOAT_FIELD = preload("res://property_fields/float_field.tscn")
 const TEXT_FIELD = preload("res://property_fields/text_field.tscn")
 const CHECKBOX_FIELD = preload("res://property_fields/checkbox_field.tscn")
 const COLOR_FIELD = preload("res://property_fields/color_field.tscn")
@@ -41,8 +42,10 @@ func build_ui():
 			var prop_type = prop["type"]
 			var field_node = null
 			
-			if prop_type == TYPE_FLOAT or prop_type == TYPE_INT:
+			if prop_type == TYPE_INT:
 				field_node = NUMBER_FIELD.instantiate()
+			elif prop_type == TYPE_FLOAT:
+				field_node = FLOAT_FIELD.instantiate()
 			elif prop_type == TYPE_STRING:
 				field_node = TEXT_FIELD.instantiate()
 			elif prop_type == TYPE_BOOL:
