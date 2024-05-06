@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://c4atwge0pv80"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_gnx52"]
-[ext_resource type="Theme" uid="uid://dwpq5fy6hwu8f" path="res://sidebar_theme.tres" id="2_0h620"]
+[ext_resource type="Theme" uid="uid://dwpq5fy6hwu8f" path="res://ui/sidebar_theme.tres" id="2_0h620"]
 [ext_resource type="Script" path="res://MouseDetect.gd" id="2_6dac1"]
-[ext_resource type="Script" path="res://tool_panel.gd" id="3_vdhes"]
-[ext_resource type="Script" path="res://presets_panel.gd" id="4_8deob"]
-[ext_resource type="PackedScene" uid="uid://cc63afj3rd6kt" path="res://export_panel.tscn" id="5_4aft5"]
-[ext_resource type="PackedScene" uid="uid://by4871thql3of" path="res://console.tscn" id="6_4xgvq"]
+[ext_resource type="Script" path="res://ui/tool_panel.gd" id="3_vdhes"]
+[ext_resource type="Script" path="res://ui/presets_panel.gd" id="4_8deob"]
+[ext_resource type="PackedScene" uid="uid://cc63afj3rd6kt" path="res://ui/export_panel.tscn" id="5_4aft5"]
+[ext_resource type="PackedScene" uid="uid://by4871thql3of" path="res://ui/console.tscn" id="6_4xgvq"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3tlp1"]
 size = Vector2(1024, 1024)
