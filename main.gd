@@ -30,9 +30,18 @@ func _ready() -> void:
 		Logger.info("No preset - creating a default one")
 		assign_preset(ChaosPreset.new())
 	
-	run_chaos_button.pressed.connect(run_chaos_game)
-	clear_canvas_button.pressed.connect(clear_canvas)
-	new_preset_button.pressed.connect(func(): assign_preset(ChaosPreset.new()))
+	run_chaos_button.pressed.connect(func():
+		Logger.info("Running Chaos Game!")
+		run_chaos_game()
+	)
+	clear_canvas_button.pressed.connect(func():
+		Logger.info("Clear canvas")
+		clear_canvas()
+	)
+	new_preset_button.pressed.connect(func(): 
+		Logger.info("Creating new chaos preset")
+		assign_preset(ChaosPreset.new())
+	)
 	
 	panel_presets.on_preset_selected.connect(func(p):
 		assign_preset(p)
@@ -82,6 +91,8 @@ func recalculate_points() -> void:
 	
 	run_chaos_game()
 
+## Ran when a point is deleted by the user. All points are cleared and reloaded back
+## from vertex handle positions.
 func reload_points() -> void:
 	helper_line.clear_points()
 	preset.points.clear()

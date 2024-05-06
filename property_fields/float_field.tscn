@@ -61,9 +61,9 @@ horizontal_alignment = 2
 [node name="SliderContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
 
 [node name="HSlider" type="HSlider" parent="SliderContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
 tick_count = 5
