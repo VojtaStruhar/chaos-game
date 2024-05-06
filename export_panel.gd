@@ -10,11 +10,16 @@ var preset: ChaosPreset
 
 @onready var accept_dialog: AcceptDialog = $AcceptDialog
 
+var exports_dir: String = "exports"
+
 func _ready() -> void:
 	visibility_changed.connect(func():
 		export_button.disabled = preset == null
 		_update_expected_steps(export_level.value)
 	)
+	var d = DirAccess.open(".")
+	d.make_dir(exports_dir)
+	
 	
 	export_level.value_changed.connect(_update_expected_steps)
 	export_button.pressed.connect(export)
@@ -28,8 +33,10 @@ func export() -> void:
 	
 	accept_dialog.show()
 	Logger.info("Export complete")
+	var export_path = exports_dir + "/" + preset.name.to_snake_case() + ".png"
 	
-	var err = image.save_png("result.png")
+	Logger.info("Saving export to " + export_path)
+	var err = image.save_png(export_path)
 	if err != OK:
 		Logger.error("Failed to save exported image")
 	

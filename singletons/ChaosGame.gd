@@ -39,7 +39,6 @@ func run_iterative(preset: ChaosPreset, image: Image) -> void:
 # Compute this dict ahead of time from running a recursive (export) algorithm.
 # I'll just put this here in global scope for future threaded approach.
 var _recursive_picks: Dictionary = {}
-var _recursive_possibilities: Array[Vector2] = []
 
 ## Runs a 'perfect' version of the chaos game up to a certain recursion level.
 ## No randomness - creates a perfect image, but the depth of the fractal is capped.
