@@ -80,6 +80,25 @@ popup/item_1/id = 4096
 popup/item_2/text = "8K"
 popup/item_2/id = 8192
 
+[node name="ThreadField" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ThreadField"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Run in background thread"
+
+[node name="BackgroundThreadCheckbox" type="CheckBox" parent="VBoxContainer/ThreadField"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Running export in a background thread might take longer, but the app stays responsive."
+label_settings = SubResource("LabelSettings_4t3ib")
+
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
@@ -92,3 +111,6 @@ text = "Export image"
 initial_position = 2
 size = Vector2i(373, 80)
 dialog_text = "Image exported!"
+
+[node name="PollTimer" type="Timer" parent="."]
+wait_time = 0.2

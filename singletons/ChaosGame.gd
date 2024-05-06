@@ -49,7 +49,6 @@ func run_recursive(preset: ChaosPreset, image: Image, level: int) -> void:
 	
 	
 	_recursive_picks = calculate_vertex_picks(preset)
-	Logger.info("Running recursive fractal drawing. Estimated steps: " + str(estimate_recursive_steps(_recursive_picks, level)))
 	image.fill(preset.background_color)
 	
 	for point in preset.points:
@@ -112,7 +111,6 @@ func calculate_vertex_picks(preset: ChaosPreset) -> Dictionary:
 		result[point] = point_possibilities
 	
 	return result
-
 
 
 func estimate_recursive_steps(picks: Dictionary, level: int) -> int:

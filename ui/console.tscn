@@ -37,7 +37,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
-text = "Logs console"
+text = "Console"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/Header"]
 layout_mode = 2
