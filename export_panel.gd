@@ -31,7 +31,6 @@ func export() -> void:
 	
 	accept_dialog.show()
 
-
 func _update_expected_steps(new_recursion_level) -> void:
 	expected_steps_label.text = str(
 		ChaosGame.estimate_recursive_steps(
