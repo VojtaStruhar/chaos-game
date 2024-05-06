@@ -32,5 +32,10 @@ func export() -> void:
 	accept_dialog.show()
 
 
-func _update_expected_steps(new_value) -> void:
-	expected_steps_label.text = str(pow(preset.points.size(), new_value))
+func _update_expected_steps(new_recursion_level) -> void:
+	expected_steps_label.text = str(
+		ChaosGame.estimate_recursive_steps(
+			ChaosGame.calculate_vertex_picks(preset), 
+			new_recursion_level
+		)
+	)
