@@ -7,6 +7,10 @@ font_size = 15
 font_color = Color(0.788235, 0.788235, 0.788235, 1)
 
 [node name="Export" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 370.0
+grow_horizontal = 2
 script = ExtResource("1_24gqx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -47,11 +51,34 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/ExpectedComputation"]
 layout_mode = 2
 text = "Expected computation steps:"
+label_settings = SubResource("LabelSettings_4t3ib")
 
 [node name="ExpectedStepsLabel" type="Label" parent="VBoxContainer/ExpectedComputation"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "A lot"
+label_settings = SubResource("LabelSettings_4t3ib")
+
+[node name="ResolutionField" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ResolutionField"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export resolution"
+
+[node name="ResolutionOptions" type="OptionButton" parent="VBoxContainer/ResolutionField"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 1
+popup/item_0/text = "2K"
+popup/item_0/id = 2048
+popup/item_1/text = "4K"
+popup/item_1/id = 4096
+popup/item_2/text = "8K"
+popup/item_2/id = 8192
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
