@@ -16,7 +16,7 @@ var exports_dir: String = "exports"
  
 @onready var background_thread_checkbox: CheckBox = %BackgroundThreadCheckbox
 @onready var poll_timer: Timer = $PollTimer
-var thread = Thread.new()
+var thread: Thread
 
 signal export_complete
 
@@ -53,11 +53,15 @@ func export() -> void:
 	
 	var image: Image = Image.create(export_preset.canvas_size, export_preset.canvas_size, false, Image.FORMAT_RGBA8)
 	
+	var export_path = exports_dir + "/" + preset.name.to_snake_case() + "_" + resolution_options.get_item_text(resolution_options.selected) + ".png"
+	
+	if FileAccess.file_exists(export_path):
+		Logger.warning("The file you want to export already exists. Rename your preset.")
+		return
+	
 	export_complete.connect(func():
 		accept_dialog.show()
-		Logger.info("Export complete")
-		var export_path = exports_dir + "/" + preset.name.to_snake_case() + "_" + resolution_options.get_item_text(resolution_options.selected) + ".png"
-		
+		thread.wait_to_finish()
 		Logger.info("Saving export to " + export_path)
 		var err = image.save_png(export_path)
 		if err != OK:
@@ -79,6 +83,7 @@ func _export_background_thread(p: ChaosPreset, image: Image, level: int) -> void
 	poll_timer.start()
 	export_button.disabled = true
 	export_button.text = "Export in progress..."
+	thread = Thread.new()
 	thread.start(ChaosGame.run_recursive.bind(p, image, level), Thread.PRIORITY_HIGH)
 	
 

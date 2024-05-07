@@ -18,7 +18,7 @@ func setup(data: Dictionary) -> void:
 	# Assign current value
 	line_edit.text = preset.get(prop_name)
 	
-	line_edit.text_submitted.connect(func(v):
+	line_edit.text_changed.connect(func(v):
 		preset.set(prop_stringname, v)
 	)
 "
