@@ -1,6 +1,5 @@
 extends MarginContainer
 
-@export_dir var presets_dir_path: String
 
 @onready var tree: Tree = $Tree
 
@@ -10,29 +9,33 @@ var presets_dict: Dictionary = {}
 signal on_preset_selected(ChaosPreset)
 
 func _ready() -> void:
-	var dir = DirAccess.open(presets_dir_path)
-	var tree_root = tree.create_item()
 	tree.hide_root = true
-	
 	tree.item_selected.connect(select_preset)
 	
+	visibility_changed.connect(_populate_preset_tree)
+
+func _populate_preset_tree() -> void:
+	var dir = DirAccess.open(Constants.PRESETS_DIR)
 	if dir:
 		var err = dir.list_dir_begin()
 		if err != OK:
-			print(error_string(err))
+			Logger.error("Error listing presets dir: " + error_string(err))
 			return
+		
 		var file_name = dir.get_next()
 		while file_name != "":
-			
-			var chaos_preset = ResourceLoader.load(presets_dir_path + "/" + file_name)
+			var chaos_preset = ResourceLoader.load(Constants.PRESETS_DIR + "/" + file_name)
 			if chaos_preset is ChaosPreset:
 				presets_dict[file_name] = chaos_preset
 			
 			file_name = dir.get_next()
 	else:
-		print("An error occurred when trying to access the path.")
+		Logger.error("An error occurred when trying to access the path.")
+		return
 	
 	# Create the items sorted by filenames
+	tree.clear()
+	var tree_root = tree.create_item()
 	
 	var filenames = []
 	for key in presets_dict:

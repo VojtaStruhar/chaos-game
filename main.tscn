@@ -78,7 +78,6 @@ visible = false
 custom_minimum_size = Vector2(2.08165e-12, 500)
 layout_mode = 2
 script = ExtResource("4_8deob")
-presets_dir_path = "res://chaos_presets"
 
 [node name="Tree" type="Tree" parent="CanvasLayer/SidePanel/VBoxContainer/TabContainer/Presets"]
 layout_mode = 2
