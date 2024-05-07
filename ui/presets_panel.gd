@@ -9,9 +9,14 @@ var presets_dict: Dictionary = {}
 signal on_preset_selected(ChaosPreset)
 
 func _ready() -> void:
+	
+	var d = DirAccess.open(".")  # Current directory, from where the binary is run
+	var err = d.make_dir(Constants.PRESETS_DIR)
+	if err != OK:
+		Logger.error("Error creating presets folder: " + error_string(err))
+	
 	tree.hide_root = true
 	tree.item_selected.connect(select_preset)
-	
 	visibility_changed.connect(_populate_preset_tree)
 
 func _populate_preset_tree() -> void:
