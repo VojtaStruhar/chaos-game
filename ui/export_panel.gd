@@ -22,13 +22,11 @@ signal export_complete
 
 func _ready() -> void:
 	visibility_changed.connect(func():
-		export_button.disabled = preset == null
-		_update_expected_steps(export_level.value)
+		if visible:
+			if preset == null:
+				export_button.disabled = true
+			_update_expected_steps(export_level.value)
 	)
-	var d = DirAccess.open(".")  # Current directory, from where the binary is run
-	var err = d.make_dir(exports_dir)
-	if err != OK:
-		Logger.error("Error creating exports folder: " + error_string(err))
 	
 	export_level.value_changed.connect(_update_expected_steps)
 	export_button.pressed.connect(export)
@@ -56,7 +54,7 @@ func export() -> void:
 	var export_path = exports_dir + "/" + preset.name.to_snake_case() + "_" + resolution_options.get_item_text(resolution_options.selected) + ".png"
 	
 	if FileAccess.file_exists(export_path):
-		Logger.warning("The file you want to export already exists. Rename your preset.")
+		Logger.error("The file you want to export already exists. Rename your preset.")
 		return
 	
 	export_complete.connect(func():
