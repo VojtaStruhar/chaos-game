@@ -19,14 +19,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
-text = "A recursive algorithm is used for drawing fractals for export. You can get an idea of how detailed the result will be from the number of steps the algorithm is expected to take.
-
-With more vertices, the export might take a long time!"
+text = "A recursive algorithm is used for drawing fractals for export. You can get an idea of how detailed the result will be from the number of steps the algorithm is expected to take. With more vertices, the export might take a long time!"
 label_settings = SubResource("LabelSettings_4t3ib")
+vertical_alignment = 1
 autowrap_mode = 3
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-layout_mode = 2
 
 [node name="RecursionField" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -99,13 +95,26 @@ layout_mode = 2
 text = "Running export in a background thread might take longer, but the app stays responsive."
 label_settings = SubResource("LabelSettings_4t3ib")
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-layout_mode = 2
-
 [node name="ExportButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Export image"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "You can save your current chaos game settings to a preset file!"
+label_settings = SubResource("LabelSettings_4t3ib")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="SavePresetButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save Preset"
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
 initial_position = 2

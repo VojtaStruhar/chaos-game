@@ -20,7 +20,7 @@ func _ready() -> void:
 		
 		preset.append_point(point + dir.rotated(deg_to_rad(angle_step * i)))
 	
-	var err = ResourceSaver.save(preset, \"res://chaos_presets/\"+filename)
+	var err = ResourceSaver.save(preset, Constants.PRESETS_DIR + \"/\" +filename)
 	print(error_string(err))
 "
 

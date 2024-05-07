@@ -7,6 +7,7 @@ var preset: ChaosPreset
 @onready var expected_steps_label: Label = %ExpectedStepsLabel
 @onready var resolution_options: OptionButton = %ResolutionOptions
 @onready var export_button: Button = %ExportButton
+@onready var save_preset_button: Button = %SavePresetButton
 
 @onready var accept_dialog: AcceptDialog = $AcceptDialog
 var exports_dir: String = "exports"
@@ -31,6 +32,7 @@ func _ready() -> void:
 	
 	export_level.value_changed.connect(_update_expected_steps)
 	export_button.pressed.connect(export)
+	save_preset_button.pressed.connect(_save_preset)
 	
 	poll_timer.timeout.connect(func():
 		if not thread.is_alive():
@@ -87,3 +89,19 @@ func _update_expected_steps(new_recursion_level) -> void:
 			new_recursion_level
 		)
 	)
+
+func _save_preset() -> void:
+	var dir = DirAccess.open(Constants.PRESETS_DIR)
+	if dir == null:
+		Logger.error("Failed to open presets directory: " + error_string(DirAccess.get_open_error()))
+		return
+	
+	var saved_filename = preset.name.to_snake_case() + ".tres"
+	if dir.file_exists(saved_filename):
+		Logger.error("File " + saved_filename + " already exists. Change the name of your preset!")
+		return
+	
+	var save_path = Constants.PRESETS_DIR + "/" + saved_filename
+	ResourceSaver.save(preset, save_path)
+	Logger.info("Saved preset to " + save_path)
+	
