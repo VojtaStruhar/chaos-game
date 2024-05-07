@@ -2,7 +2,7 @@
 
 A tool for playing around with [Chaos Game](https://en.wikipedia.org/wiki/Chaos_game) and possibly generating some cool fractals!
 
-![Tool preview](README.assets/tool-screenshot.png)
+![Tool preview](showcase/tool-screenshot.png)
 
 ## Features
 
@@ -27,6 +27,10 @@ The tool provides an *estimate* of how many operations will be needed for the ex
 ## TODO
 
 - Snap points to a grid - just a square grid at first? Show guidance lines maybe?
+
+# Issues
+
+The tool is supposed to access `export` and `chaos_preset` folders next to the built executable (and if they don't exist, create them). On windows this seems to work fine (??) and even on MacOS through Wine, the folders get created. With MacOS build however, it seems to fail. Everything works in the editor tho.
 
 ## Resources
 
