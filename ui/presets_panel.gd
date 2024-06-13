@@ -12,27 +12,28 @@ func _ready() -> void:
 	tree.hide_root = true
 	tree.item_selected.connect(select_preset)
 	visibility_changed.connect(func():
-		if visible: _populate_preset_tree
+		if visible: _populate_preset_tree()
 	)
 
 func _populate_preset_tree() -> void:
-	var dir = DirAccess.open(Constants.PRESETS_DIR)
-	if dir:
-		var err = dir.list_dir_begin()
-		if err != OK:
-			Logger.error("Error listing presets dir: " + error_string(err))
+	for dirname in [Constants.PRESETS_DIR, Constants.DEVELOPMENT_PRESETS_DIR]:
+		var dir = DirAccess.open(dirname)
+		if dir:
+			var filenames = dir.get_files()
+			if filenames.size() == 0:
+				Logger.warning(dirname + " contains no files")
+				
+			for file_name in filenames:
+				# On macos files are remapped for some reason
+				# https://forum.godotengine.org/t/error-loading-resource-files-in-game-build-in-godot-4/1392
+				file_name = file_name.trim_suffix(".remap")
+				
+				var chaos_preset = ResourceLoader.load(dirname + "/" + file_name)
+				if chaos_preset is ChaosPreset:
+					presets_dict[file_name] = chaos_preset
+		else:
+			Logger.error("Failed to read presets dir: " + dirname)
 			return
-		
-		var file_name = dir.get_next()
-		while file_name != "":
-			var chaos_preset = ResourceLoader.load(Constants.PRESETS_DIR + "/" + file_name)
-			if chaos_preset is ChaosPreset:
-				presets_dict[file_name] = chaos_preset
-			
-			file_name = dir.get_next()
-	else:
-		Logger.error("An error occurred when trying to access the path.")
-		return
 	
 	# Create the items sorted by filenames
 	tree.clear()

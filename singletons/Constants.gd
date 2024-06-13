@@ -1,19 +1,41 @@
 extends Node
 
-var EXPORTS_DIR: String
-var PRESETS_DIR: String
+var EXPORTS_DIR: String = "exports"
+var PRESETS_DIR: String = "chaos_presets"
+
+var DEVELOPMENT_PRESETS_DIR: String = "res://chaos_presets"
 
 func _enter_tree() -> void:
-	var curr = DirAccess.open(".")
-	var curr_abs = curr.get_current_dir()
 	
-	EXPORTS_DIR = curr_abs + "/exports"
-	PRESETS_DIR = curr_abs + "/chaos_presets"
-	
-	if not curr.dir_exists("exports"):
-		curr.make_dir("exports")
+	if OS.has_feature("editor"):
+		EXPORTS_DIR = "res://" + EXPORTS_DIR
+		PRESETS_DIR = "res://" + PRESETS_DIR
+	else:
+		var exe_path = OS.get_executable_path()
+		var prefix = "user://"
 		
-	if not curr.dir_exists("chaos_presets"):
-		curr.make_dir("chaos_presets")
-	
+		match OS.get_name():
+			#"Windows":
+				#pass
+			"macOS":
+				var parts = exe_path.split("/")
+				parts.remove_at(0) # remove empty string
+				var slice = ""
+				for p in parts:
+					if p.contains(".app"):
+						break
+					slice += "/" + p
+				prefix = slice + "/"
+		
+		EXPORTS_DIR = prefix + EXPORTS_DIR
+		PRESETS_DIR = prefix + PRESETS_DIR
+		
+		if DirAccess.dir_exists_absolute(EXPORTS_DIR) or DirAccess.dir_exists_absolute(PRESETS_DIR):
+			# This is not the first launch. The  folder structure is already setup.
+			Logger.info("Skipping setting up folder structure")
+			return
+		
+		DirAccess.make_dir_recursive_absolute(EXPORTS_DIR)
+		DirAccess.make_dir_recursive_absolute(PRESETS_DIR)
+		
 

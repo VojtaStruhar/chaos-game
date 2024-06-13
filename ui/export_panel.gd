@@ -10,7 +10,10 @@ var preset: ChaosPreset
 @onready var save_preset_button: Button = %SavePresetButton
 
 @onready var accept_dialog: AcceptDialog = $AcceptDialog
-var exports_dir: String = "exports"
+
+@onready var export_location_label: Label = %ExportLocationLabel
+@onready var preset_location_label: Label = %PresetLocationLabel
+
 
 # Background thread related stuff
  
@@ -28,13 +31,16 @@ func _ready() -> void:
 			_update_expected_steps(export_level.value)
 	)
 	
+	export_location_label.text = "Exports directory: " + Constants.EXPORTS_DIR
+	preset_location_label.text = "Presets directory: " + Constants.PRESETS_DIR
+	
 	export_level.value_changed.connect(_update_expected_steps)
 	export_button.pressed.connect(export)
 	save_preset_button.pressed.connect(_save_preset)
 	
 	poll_timer.timeout.connect(func():
 		if not thread.is_alive():
-			Logger.info("Background export finished!")
+			Logger.info("Export finished! " + Constants.EXPORTS_DIR)
 			poll_timer.stop()
 			export_button.disabled = false
 			export_button.text = "Export image"
@@ -51,7 +57,7 @@ func export() -> void:
 	
 	var image: Image = Image.create(export_preset.canvas_size, export_preset.canvas_size, false, Image.FORMAT_RGBA8)
 	
-	var export_path = exports_dir + "/" + preset.name.to_snake_case() + "_" + resolution_options.get_item_text(resolution_options.selected) + ".png"
+	var export_path = Constants.EXPORTS_DIR + "/" + preset.name.to_snake_case() + "_" + resolution_options.get_item_text(resolution_options.selected) + ".png"
 	
 	if FileAccess.file_exists(export_path):
 		Logger.error("The file you want to export already exists. Rename your preset.")
