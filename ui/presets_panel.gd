@@ -19,11 +19,7 @@ func _populate_preset_tree() -> void:
 	for dirname in [Constants.PRESETS_DIR, Constants.DEVELOPMENT_PRESETS_DIR]:
 		var dir = DirAccess.open(dirname)
 		if dir:
-			var filenames = dir.get_files()
-			if filenames.size() == 0:
-				Logger.warning(dirname + " contains no files")
-				
-			for file_name in filenames:
+			for file_name in dir.get_files():
 				# On macos files are remapped for some reason
 				# https://forum.godotengine.org/t/error-loading-resource-files-in-game-build-in-godot-4/1392
 				file_name = file_name.trim_suffix(".remap")

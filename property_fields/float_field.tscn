@@ -15,7 +15,7 @@ func setup(data: Dictionary):
 
 	var prop_name = data[\"name\"]
 	prop_stringname = StringName(prop_name)
-	label.text = prop_name.to_pascal_case()
+	label.text = prop_name.capitalize()
 	
 	
 	if data[\"hint\"] == PROPERTY_HINT_RANGE:

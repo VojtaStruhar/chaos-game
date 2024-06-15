@@ -47,13 +47,12 @@ func run_recursive(preset: ChaosPreset, image: Image, level: int) -> void:
 		Logger.warning("Cannot run chaos game with " + str(preset.points.size()) + " points!")
 		return
 	
-	
 	_recursive_picks = calculate_vertex_picks(preset)
 	image.fill(preset.background_color)
 	
 	for point in preset.points:
 		_recursive_fractal(preset, _recursive_picks[point], image, point, level)
-
+		
 
 func _recursive_fractal(preset: ChaosPreset, possibilities: Array[Vector2], image: Image, current: Vector2, level: int) -> void:
 	if level == 0:
