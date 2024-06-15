@@ -27,10 +27,12 @@ The tool provides an *estimate* of how many operations will be needed for the ex
 ## TODO
 
 - Snap points to a grid - just a square grid at first? Show guidance lines maybe?
-
-# Issues
-
-The tool is supposed to access `export` and `chaos_preset` folders next to the built executable (and if they don't exist, create them). On windows this seems to work fine (??) and even on MacOS through Wine, the folders get created. With MacOS build however, it seems to fail. Everything works in the editor tho.
+- Finer control over the points. Maybe click on a point to make it _selected_ and then you could adjust it's precise location with a couple of fields?
+- When saving an existing preset, warn about _overwriting_ it.
+- When exporting to an image that already exists, append a number to it or something. Let people make stuff.
+- Allow transparency for point colors and actually _add_ the pixel colors together. How will this interact with the background color?
+- Add update reminder somehow (just check GitHub I guess?)
+- Human readable _expected iterations_ in export tabs.
 
 ## Resources
 
