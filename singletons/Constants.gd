@@ -41,6 +41,4 @@ func _enter_tree() -> void:
 		if e != OK:
 			Logger.warning("Folder setup error: " + error_string(e))
 	
-			Logger.info(EXPORTS_DIR)
-			Logger.info(PRESETS_DIR)
 	
